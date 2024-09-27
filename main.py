@@ -15,5 +15,5 @@ if __name__ == '__main__':
 
         snowman(snowman_word)
     else: 
-      from game_test import *
-      unittest.main(exit=False)
+        from game_test import *
+        unittest.main(exit=False)
