@@ -51,20 +51,7 @@ def build_word_dict(snowman_word):
 def print_snowman(wrong_guesses_count):
     for i in range(SNOWMAN_WRONG_GUESSES - wrong_guesses_count, SNOWMAN_WRONG_GUESSES):
         print(SNOWMAN_GRAPHIC[i])
-        if i == 0:
-            print(SNOWMAN_GRAPHIC[0])
-        elif i == 1:
-            print(SNOWMAN_GRAPHIC[1])
-        elif i == 2:
-            print(SNOWMAN_GRAPHIC[2])
-        elif i == 3:
-            print(SNOWMAN_GRAPHIC[3])
-        elif i == 4:
-            print(SNOWMAN_GRAPHIC[4])
-        elif i == 5:
-            print(SNOWMAN_GRAPHIC[5])
-        elif i == 6:
-            print(SNOWMAN_GRAPHIC[6])
+
     
 def print_word_progress_string(snowman_word, snowman_word_dict):
     output_string = ""
