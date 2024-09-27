@@ -65,36 +65,31 @@ def print_word_progress_string(snowman_word, snowman_word_dict):
 
 
 def snowman(snowman_word):
-    r = RandomWord()
-    snowman_word = r.word(
-        word_min_length=SNOWMAN_MIN_WORD_LENGTH, 
-        word_max_length=SNOWMAN_MAX_WORD_LENGTH)
 
-    print(f"debug info: {snowman_word}")
-
-    correct_guesses_list = []
+    word_dict = build_word_dict(snowman_word) 
     wrong_guesses_list = []
-    
+
 
     while len(wrong_guesses_list) < SNOWMAN_WRONG_GUESSES:
-        user_input = get_letter_from_user(wrong_guesses_list, correct_guesses_list)
+        user_input = get_letter_from_user(word_dict, wrong_guesses_list)
+        
         if user_input in snowman_word:
             print("You guessed a letter that's in the word!")
-            correct_guesses_list.append(user_input)
+            word_dict[user_input] = True 
         else:
-                print("You've already guessed that letter correctly.")
-        
-        if user_input not in wrong_guesses_list:
             wrong_guesses_list.append(user_input)
             print(f"The letter {user_input} is not in the word")
-        else:
-            print("You've already guessed that letter incorrectly.")
+        
+        has_player_won = get_word_progress(snowman_word, word_dict)
 
         print_snowman(len(wrong_guesses_list))
         print(f"Wrong guesses: {wrong_guesses_list}")   
-        
-        if user_input and correct_guesses_list:
+
+        print_word_progress_string(snowman_word, word_dict)
+
+        if has_player_won:
             print("You win!")
             return
-        print("Sorry, you lose!")
-        print(f"The word was '{snowman_word}'.")
+        
+    print("Sorry, you lose!")
+    print(f"The word was {snowman_word}.")
