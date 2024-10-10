@@ -17,7 +17,36 @@ def snowman(snowman_word):
     If the player wins and, 
     'Sorry, you lose! The word was {snowman_word}' if the player loses
     """
-    pass
+    if not (SNOWMAN_MIN_WORD_LENGTH <= len(snowman_word) <= SNOWMAN_MAX_WORD_LENGTH):
+        print("Invalid word length! The word must be between 5 and 8 characters.")
+        return
+
+    snowman_word_dict = {letter: False for letter in snowman_word}
+    wrong_guesses_list = []
+    num_wrong_guesses = 0 
+
+    while num_wrong_guesses < SNOWMAN_MAX_WRONG_GUESSES:
+        print_word_progress_string(snowman_word, snowman_word_dict)
+        print_snowman_graphic(num_wrong_guesses)
+
+        guessed_letter = get_letter_from_user(snowman_word_dict, wrong_guesses_list)
+
+        if guessed_letter in snowman_word:
+            snowman_word_dict[guessed_letter] = True
+
+            if all(snowman_word_dict[letter] for letter in snowman_word):
+                print_word_progress_string(snowman_word, snowman_word_dict)
+                print("Congratulations, you win!")
+                print_snowman_graphic(num_wrong_guesses)
+                return
+        else:
+            if guessed_letter not in wrong_guesses_list:
+                wrong_guesses_list.append(guessed_letter)
+                num_wrong_guesses += 1
+            else:
+                print("You already guessed the letter and it's not in the word!")
+
+    print(f"Sorry, you lose! The word was {snowman_word}.")  
 
 def print_snowman_graphic(num_wrong_guesses):
     """This function prints out the appropriate snowman image 
