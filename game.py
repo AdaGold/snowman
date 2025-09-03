@@ -20,7 +20,38 @@ def snowman(snowman_word):
     If the player wins and, 
     'Sorry, you lose! The word was {snowman_word}' if the player loses
     """
-    pass
+
+    letter_dictionary = build_letter_status_dict(snowman_word)
+    wrong_guesses_list = []
+    count = 0
+    letter_input = None
+
+    while (count < SNOWMAN_MAX_WRONG_GUESSES and not is_word_guessed(snowman_word, letter_dictionary)):
+        print("\nGuess The Word!") # Print a blank line for readability
+        print_word_progress_string(snowman_word, letter_dictionary)
+        print("\n") # Print a blank line for readability
+
+        letter_input = get_letter_from_user(letter_dictionary, wrong_guesses_list)
+
+        if letter_input in letter_dictionary:
+            letter_dictionary[letter_input] = True
+            if is_word_guessed(snowman_word, letter_dictionary):
+                break
+            print(f"Correct guess! You have {SNOWMAN_MAX_WRONG_GUESSES - count} guesses left.")
+        else:
+            wrong_guesses_list.append(letter_input)
+            count += 1
+            if count == SNOWMAN_MAX_WRONG_GUESSES:
+                break
+            print(f"Wrong guess! You have {SNOWMAN_MAX_WRONG_GUESSES - count} guesses left.\nSnowman Progress:\n")
+            print_snowman_graphic(count)
+        
+    if is_word_guessed(snowman_word, letter_dictionary):
+        print("Congratulations, you win!\nYour final snowman:")
+        print_snowman_graphic(count)
+    else:
+        print_snowman_graphic(count)
+        print(f"Sorry, you lose! The word was {snowman_word}!\nWrong guesses were: {wrong_guesses_list}")
 
 
 def print_snowman_graphic(wrong_guesses_count):
