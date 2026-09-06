@@ -20,7 +20,6 @@ def snowman(snowman_word):
     If the player wins and, 
     'Sorry, you lose! The word was {snowman_word}' if the player loses
     """
-    # print(snowman_word)
 
     wrong_guesses_list = []
     correct_letter_guess_statuses = build_letter_status_dict(snowman_word)
@@ -41,7 +40,6 @@ def snowman(snowman_word):
     if is_word_guessed(snowman_word, correct_letter_guess_statuses): 
         print("Congratulations, you win!")
     else: 
-        # print("Sorry, you lose! The word was snowman") <- all tests OK, typo in test?
         print("Sorry, you lose! The word was {snowman_word}")
                 
     print(f"Correct guesses: {sum(correct_letter_guess_statuses.values())}, incorrect guesses: {len(wrong_guesses_list)}")
